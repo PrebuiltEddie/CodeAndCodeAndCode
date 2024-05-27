@@ -1,25 +1,96 @@
 using System;
+using System.IO;
 
 class Program
 {
+    private static string stateFilePath = "state.txt";
+
     public static void Main(string[] args)
     {
-        // Test Case 1
-        DisplayPersonalInfo("Lucinda Potter", "6/24/1992", "000-000-0101", "000-000-0189");
-        // Test Case 2
-        DisplayPersonalInfo("John Smith", "8/15/1978", "000-111-0101", "000-111-0189");
-        // Test Case 3
-        DisplayPersonalInfo("Chris Johnson", "12/01/1987", "000-222-0101", "000-222-0189");
-        // Test Case 4
-        DisplayPersonalInfo("Robert Hall", "2/27/1949", "000-444-0101", "000-444-0189");
+        int state = GetState();
+        switch (state)
+        {
+            case 1:
+                DisplayLyrics1();
+                break;
+            case 2:
+                DisplayLyrics2();
+                break;
+            case 3:
+                DisplayLyrics3();
+                break;
+            case 4:
+                DisplayLyrics4();
+                break;
+            default:
+                Console.WriteLine("Invalid state.");
+                break;
+        }
+        UpdateState(state);
     }
 
-    public static void DisplayPersonalInfo(string name, string birthdate, string workPhone, string cellPhone)
+    private static int GetState()
     {
-        Console.WriteLine(name);
-        Console.WriteLine(birthdate);
-        Console.WriteLine("work " + workPhone);
-        Console.WriteLine("cell " + cellPhone);
+        if (!File.Exists(stateFilePath))
+        {
+            File.WriteAllText(stateFilePath, "1");
+            return 1;
+        }
+
+        string stateText = File.ReadAllText(stateFilePath);
+        if (int.TryParse(stateText, out int state))
+        {
+            return state;
+        }
+        else
+        {
+            File.WriteAllText(stateFilePath, "1");
+            return 1;
+        }
+    }
+
+    private static void UpdateState(int currentState)
+    {
+        int nextState = (currentState % 4) + 1;
+        File.WriteAllText(stateFilePath, nextState.ToString());
+    }
+
+    public static void DisplayLyrics1()
+    {
+        Console.WriteLine("Oh, well imagine /");
+        Console.WriteLine("As I'm pacing the pews in a church corridor /");
+        Console.WriteLine("And I can't help but to hear /");
+        Console.WriteLine("No, I can't help but to hear an exchanging of words...");
+        Console.WriteLine();
+    }
+
+    public static void DisplayLyrics2()
+    {
+        Console.WriteLine("Oh-oh-oh-oh-oh,");
+        Console.WriteLine();
+        Console.WriteLine("oh-oh-oh-oh,");
+        Console.WriteLine();
+        Console.WriteLine("oh-oh-oh /");
+        Console.WriteLine("Caught in a bad romance...");
+        Console.WriteLine();
+    }
+
+    public static void DisplayLyrics3()
+    {
+        Console.WriteLine("Coming out of my cage");
+        Console.WriteLine("And I've been doing just fine");
+        Console.WriteLine("Gotta gotta be down");
+        Console.WriteLine("Because I want it all");
+        Console.WriteLine();
+    }
+
+    public static void DisplayLyrics4()
+    {
+        Console.WriteLine("Now, this is a story all about how");
+        Console.WriteLine("My life got flipped-turned upside down");
+        Console.WriteLine("And I'd like to take a minute");
+        Console.WriteLine("Just sit right there");
+        Console.WriteLine("I'll tell you how I became the prince of a town called Bel-Air");
         Console.WriteLine();
     }
 }
