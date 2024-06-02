@@ -2,22 +2,25 @@ using System;
 
 class Program
 {
-    static void Main()
+    static void Main(string[] args)
     {
-        // Declare the named constant for the number of centimeters in an inch
-        const double CENTIMETERS_PER_INCH = 2.54;
+        // Constants for the moving rates
+        const double baseRate = 200.0;
+        const double ratePerHour = 150.0;
+        const double ratePerMile = 2.0;
 
-        // Declare a variable for the measurement in inches
-        double inches;
+        // Prompt the user for the number of hours
+        Console.Write("Enter the estimated number of hours for the move: ");
+        double hours = Convert.ToDouble(Console.ReadLine());
 
-        // Prompt the user for the measurement in inches and read the input
-        Console.Write("Enter the measurement in inches: ");
-        inches = Convert.ToDouble(Console.ReadLine());
+        // Prompt the user for the number of miles
+        Console.Write("Enter the estimated number of miles for the move: ");
+        double miles = Convert.ToDouble(Console.ReadLine());
 
-        // Calculate the measurement in centimeters
-        double centimeters = inches * CENTIMETERS_PER_INCH;
+        // Calculate the total moving fee
+        double totalFee = baseRate + (ratePerHour * hours) + (ratePerMile * miles);
 
-        // Display the measurement in both inches and centimeters
-        Console.WriteLine($"{inches} inches is {centimeters} centimeters.");
+        // Display the total moving fee
+        Console.WriteLine("The total moving fee is: $" + totalFee);
     }
 }
