@@ -1,19 +1,48 @@
 using System;
 
-    public class Program
+    class Program
     {
-        public static void Main(string[] args)
+        static void Main(string[] args)
         {
-            Console.WriteLine("Enter your message: ");
-            string message = Console.ReadLine();
-
-            string result = IsMessageValid(message) ? "Posted" : "Rejected";
-            Console.WriteLine(result);
+            Console.WriteLine("Enter the wind speed (in miles per hour): ");
+            string input = Console.ReadLine();
+            if (double.TryParse(input, out double windSpeed))
+            {
+                string category = GetHurricaneCategory(windSpeed);
+                Console.WriteLine(category);
+            }
+            else
+            {
+                Console.WriteLine("Invalid input. Please enter a valid number.");
+            }
         }
 
-        public static bool IsMessageValid(string message)
+        static string GetHurricaneCategory(double windSpeed)
         {
-            return message.Length <= 140;
+            if (windSpeed >= 157)
+            {
+                return "Category 5 hurricane";
+            }
+            else if (windSpeed >= 130)
+            {
+                return "Category 4 hurricane";
+            }
+            else if (windSpeed >= 111)
+            {
+                return "Category 3 hurricane";
+            }
+            else if (windSpeed >= 96)
+            {
+                return "Category 2 hurricane";
+            }
+            else if (windSpeed >= 74)
+            {
+                return "Category 1 hurricane";
+            }
+            else
+            {
+                return "Not a hurricane";
+            }
         }
     }
 
