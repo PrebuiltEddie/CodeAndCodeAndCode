@@ -4,58 +4,66 @@ class Program
 {
     static void Main()
     {
-        decimal totalD = 0, totalE = 0, totalF = 0;
-        string input;
+        Console.WriteLine("************************************");
+        Console.WriteLine("*  The stars shine in Greenville.  *");
+        Console.WriteLine("************************************\n");
 
-        while (true)
+        bool exitRequested = false;
+
+        while (!exitRequested)
         {
-            Console.Write("Enter a salesperson initial (D, E, F) or Z to quit: ");
-            input = Console.ReadLine().ToUpper();
+            DisplayMenu();
+            string userInput = Console.ReadLine();
 
-            if (input == "Z")
-                break;
-
-            if (input != "D" && input != "E" && input != "F")
+            switch (userInput)
             {
-                Console.WriteLine("Error: Invalid initial. Please enter D, E, F, or Z.");
-                continue;
-            }
-
-            Console.Write("Enter the amount of sale: ");
-            if (!decimal.TryParse(Console.ReadLine(), out decimal saleAmount) || saleAmount < 0)
-            {
-                Console.WriteLine("Error: Invalid sale amount. Please enter a positive number.");
-                continue;
-            }
-
-            switch (input)
-            {
-                case "D":
-                    totalD += saleAmount;
+                case "1":
+                    CalculateRevenueAndComparison();
                     break;
-                case "E":
-                    totalE += saleAmount;
+                case "2":
+                    exitRequested = true;
+                    Console.WriteLine("\nThank you for using the Greenville Revenue App, good-bye!");
                     break;
-                case "F":
-                    totalF += saleAmount;
+                default:
+                    Console.WriteLine("Invalid input. Please enter 1 or 2.");
                     break;
             }
+
+            Console.WriteLine(); // Blank line for readability after each action
         }
-
-        decimal grandTotal = totalD + totalE + totalF;
-        string highestSalesperson = GetHighestSalesperson(totalD, totalE, totalF);
-
-        Console.WriteLine($"\nGrand total: {grandTotal:C}");
-        Console.WriteLine($"Highest sale: {highestSalesperson}");
     }
 
-    static string GetHighestSalesperson(decimal totalD, decimal totalE, decimal totalF)
+    static void DisplayMenu()
     {
-        if (totalD >= totalE && totalD >= totalF)
-            return "Danielle (D)";
-        else if (totalE >= totalD && totalE >= totalF)
-            return "Edward (E)";
+        Console.WriteLine("Please Enter the following number below from the following menu:\n");
+        Console.WriteLine("1. CALCULATE Greenville Revenue Year-Over-Year");
+        Console.WriteLine("2. Exit");
+    }
+
+    static void CalculateRevenueAndComparison()
+    {
+        // Mock data for testing purposes
+        int contestantsLastYear = 122;
+        int contestantsCurrentYear = 426;
+        int ticketPrice = 25; // Assuming ticket price for calculation
+
+        // Calculate revenue
+        int revenueExpected = contestantsCurrentYear * ticketPrice;
+
+        // Compare contestant numbers
+        bool isBigger = contestantsCurrentYear > contestantsLastYear;
+
+        // Output results
+        Console.WriteLine($"Last year's competition had {contestantsLastYear} contestants, and this year's has {contestantsCurrentYear} contestants");
+        Console.WriteLine($"Revenue expected this year is ${revenueExpected}");
+
+        if (isBigger)
+        {
+            Console.WriteLine("It is true that this year's competition is bigger than last year's.");
+        }
         else
-            return "Francis (F)";
+        {
+            Console.WriteLine("This year's competition is not bigger than last year's.");
+        }
     }
 }
