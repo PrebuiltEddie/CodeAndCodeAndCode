@@ -42,28 +42,43 @@ class Program
 
     static void CalculateRevenueAndComparison()
     {
-        // Mock data for testing purposes
-        int contestantsLastYear = 122;
-        int contestantsCurrentYear = 426;
+        int contestantsLastYear = 0;
+        int contestantsCurrentYear = 0;
         int ticketPrice = 25; // Assuming ticket price for calculation
+
+        // Prompt user for input
+        Console.Write("Enter the number of contestants last year: ");
+        if (!int.TryParse(Console.ReadLine(), out contestantsLastYear))
+        {
+            Console.WriteLine("Invalid input for contestants last year. Please enter a valid number.");
+            return;
+        }
+
+        Console.Write("Enter the number of contestants this year: ");
+        if (!int.TryParse(Console.ReadLine(), out contestantsCurrentYear))
+        {
+            Console.WriteLine("Invalid input for contestants this year. Please enter a valid number.");
+            return;
+        }
 
         // Calculate revenue
         int revenueExpected = contestantsCurrentYear * ticketPrice;
 
-        // Compare contestant numbers
-        bool isBigger = contestantsCurrentYear > contestantsLastYear;
-
-        // Output results
-        Console.WriteLine($"Last year's competition had {contestantsLastYear} contestants, and this year's has {contestantsCurrentYear} contestants");
-        Console.WriteLine($"Revenue expected this year is ${revenueExpected}");
-
-        if (isBigger)
+        // Compare contestant numbers and output results
+        if (contestantsCurrentYear > 2 * contestantsLastYear)
         {
-            Console.WriteLine("It is true that this year's competition is bigger than last year's.");
+            Console.WriteLine("The competition is more than twice as big this year!");
+        }
+        else if (contestantsCurrentYear > contestantsLastYear)
+        {
+            Console.WriteLine("The competition is bigger than ever!");
         }
         else
         {
-            Console.WriteLine("This year's competition is not bigger than last year's.");
+            Console.WriteLine("A tighter race this year! Come out and cast your vote!");
         }
+
+        Console.WriteLine($"Last year's competition had {contestantsLastYear} contestants, and this year's has {contestantsCurrentYear} contestants");
+        Console.WriteLine($"Revenue expected this year is ${revenueExpected}");
     }
 }
