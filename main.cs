@@ -4,31 +4,58 @@ class Program
 {
     static void Main()
     {
-        Console.Write("Enter a number to check if it is a perfect number: ");
-        int number = int.Parse(Console.ReadLine());
+        decimal totalD = 0, totalE = 0, totalF = 0;
+        string input;
 
-        if (IsPerfect(number))
+        while (true)
         {
-            Console.WriteLine("Perfect Number");
-        }
-        else
-        {
-            Console.WriteLine("Not A Perfect Number");
-        }
-    }
+            Console.Write("Enter a salesperson initial (D, E, F) or Z to quit: ");
+            input = Console.ReadLine().ToUpper();
 
-    static bool IsPerfect(int number)
-    {
-        int sum = 0;
+            if (input == "Z")
+                break;
 
-        for (int i = 1; i <= number / 2; i++)
-        {
-            if (number % i == 0)
+            if (input != "D" && input != "E" && input != "F")
             {
-                sum += i;
+                Console.WriteLine("Error: Invalid initial. Please enter D, E, F, or Z.");
+                continue;
+            }
+
+            Console.Write("Enter the amount of sale: ");
+            if (!decimal.TryParse(Console.ReadLine(), out decimal saleAmount) || saleAmount < 0)
+            {
+                Console.WriteLine("Error: Invalid sale amount. Please enter a positive number.");
+                continue;
+            }
+
+            switch (input)
+            {
+                case "D":
+                    totalD += saleAmount;
+                    break;
+                case "E":
+                    totalE += saleAmount;
+                    break;
+                case "F":
+                    totalF += saleAmount;
+                    break;
             }
         }
 
-        return sum == number;
+        decimal grandTotal = totalD + totalE + totalF;
+        string highestSalesperson = GetHighestSalesperson(totalD, totalE, totalF);
+
+        Console.WriteLine($"\nGrand total: {grandTotal:C}");
+        Console.WriteLine($"Highest sale: {highestSalesperson}");
+    }
+
+    static string GetHighestSalesperson(decimal totalD, decimal totalE, decimal totalF)
+    {
+        if (totalD >= totalE && totalD >= totalF)
+            return "Danielle (D)";
+        else if (totalE >= totalD && totalE >= totalF)
+            return "Edward (E)";
+        else
+            return "Francis (F)";
     }
 }
