@@ -1,48 +1,34 @@
 using System;
 
-    class Program
+class Program
+{
+    static void Main()
     {
-        static void Main(string[] args)
-        {
-            Console.WriteLine("Enter the wind speed (in miles per hour): ");
-            string input = Console.ReadLine();
-            if (double.TryParse(input, out double windSpeed))
-            {
-                string category = GetHurricaneCategory(windSpeed);
-                Console.WriteLine(category);
-            }
-            else
-            {
-                Console.WriteLine("Invalid input. Please enter a valid number.");
-            }
-        }
+        Console.Write("Enter a number to check if it is a perfect number: ");
+        int number = int.Parse(Console.ReadLine());
 
-        static string GetHurricaneCategory(double windSpeed)
+        if (IsPerfect(number))
         {
-            if (windSpeed >= 157)
-            {
-                return "Category 5 hurricane";
-            }
-            else if (windSpeed >= 130)
-            {
-                return "Category 4 hurricane";
-            }
-            else if (windSpeed >= 111)
-            {
-                return "Category 3 hurricane";
-            }
-            else if (windSpeed >= 96)
-            {
-                return "Category 2 hurricane";
-            }
-            else if (windSpeed >= 74)
-            {
-                return "Category 1 hurricane";
-            }
-            else
-            {
-                return "Not a hurricane";
-            }
+            Console.WriteLine("Perfect Number");
+        }
+        else
+        {
+            Console.WriteLine("Not A Perfect Number");
         }
     }
 
+    static bool IsPerfect(int number)
+    {
+        int sum = 0;
+
+        for (int i = 1; i <= number / 2; i++)
+        {
+            if (number % i == 0)
+            {
+                sum += i;
+            }
+        }
+
+        return sum == number;
+    }
+}
